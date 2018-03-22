@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic
 {
@@ -13,6 +9,12 @@ namespace Logic
             Ascending,
             Descending
         }
+        /// <summary>
+        /// Sorts jagged array by value that return <paramref name="func"/>.
+        /// </summary>
+        /// <param name="matrix">Jagged array to sort.</param>
+        /// <param name="func">Delegate that returns value that will used to sort array.</param>
+        /// <param name="order">Order of sorting.</param>
         public static void BubbleSort(this int[][] matrix, Func<int[],int> func, OrderBy order)
         {
             for (int i = 0; i < matrix.Length; i++)
@@ -24,14 +26,19 @@ namespace Logic
                 }
             }
         }
-
-        public static void Swap(ref int[] a, ref int[] b)
+        
+        private static void Swap(ref int[] a, ref int[] b)
         {
             var buff = a;
             a = b;
             b = buff;
         }
 
+        /// <summary>
+        /// Finds minimal number in int array.
+        /// </summary>
+        /// <param name="array">Int array.</param>
+        /// <returns>Minimal number.</returns>
         public static int FindMin(int[] array)
         {
             int min = Int32.MaxValue;
@@ -43,6 +50,11 @@ namespace Logic
             return min;
         }
 
+        /// <summary>
+        /// Finds maximum number in int array.
+        /// </summary>
+        /// <param name="array">Int array.</param>
+        /// <returns>Maximum number.</returns>
         public static int FindMax(int[] array)
         {
             int max = Int32.MinValue;
@@ -54,6 +66,11 @@ namespace Logic
             return max;
         }
 
+        /// <summary>
+        /// Returns lenght of int array.
+        /// </summary>
+        /// <param name="array">Int array.</param>
+        /// <returns>Lenght of <paramref name="array"/>.</returns>
         public static int GetLength(int[] array)
         {
             return array.Length;
