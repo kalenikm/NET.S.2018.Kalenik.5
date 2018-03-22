@@ -19,13 +19,13 @@ namespace Logic
             {
                 for (int j = 0; j < matrix.Length - i - 1; j++)
                 {
-                    if (func(matrix[j]) > func(matrix[j + 1]))
-                        Swap(matrix[j], matrix[j+1]);
+                    if (func(matrix[j]) > func(matrix[j + 1]) == (order == OrderBy.Ascending))
+                        Swap(ref matrix[j], ref matrix[j + 1]);
                 }
             }
         }
 
-        public static void Swap(int[] a, int[] b)
+        public static void Swap(ref int[] a, ref int[] b)
         {
             var buff = a;
             a = b;
@@ -48,7 +48,7 @@ namespace Logic
             int max = Int32.MinValue;
             foreach (var num in array)
             {
-                if (num < max)
+                if (num > max)
                     max = num;
             }
             return max;
