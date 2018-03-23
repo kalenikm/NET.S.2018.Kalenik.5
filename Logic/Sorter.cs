@@ -10,23 +10,71 @@ namespace Logic
             Descending
         }
         /// <summary>
-        /// Sorts jagged array by value that return <paramref name="func"/>.
+        /// Sorts jagged array by lenght.
         /// </summary>
         /// <param name="matrix">Jagged array to sort.</param>
-        /// <param name="func">Delegate that returns value that will used to sort array.</param>
         /// <param name="order">Order of sorting.</param>
-        public static void BubbleSort(this int[][] matrix, Func<int[],int> func, OrderBy order)
+        public static void BubbleSortByLenght(this int[][] matrix, OrderBy order)
         {
+            if(matrix == null)
+                throw new ArgumentNullException($"Array {nameof(matrix)} is null.");
+            if(matrix.Length == 0)
+                throw new ArgumentException($"Array {nameof(matrix)} is empty.");
+
             for (int i = 0; i < matrix.Length; i++)
             {
                 for (int j = 0; j < matrix.Length - i - 1; j++)
                 {
-                    if (func(matrix[j]) > func(matrix[j + 1]) == (order == OrderBy.Ascending))
+                    if (GetLenght(matrix[j]) > GetLenght(matrix[j + 1])== (order == OrderBy.Ascending))
                         Swap(ref matrix[j], ref matrix[j + 1]);
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Sorts jagged array by min value of array.
+        /// </summary>
+        /// <param name="matrix">Jagged array to sort.</param>
+        /// <param name="order">Order of sorting.</param>
+        public static void BubbleSortByMin(this int[][] matrix, OrderBy order)
+        {
+            if (matrix == null)
+                throw new ArgumentNullException($"Array {nameof(matrix)} is null.");
+            if (matrix.Length == 0)
+                throw new ArgumentException($"Array {nameof(matrix)} is empty.");
+
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix.Length - i - 1; j++)
+                {
+                    if (FindMin(matrix[j]) > FindMin(matrix[j + 1]) == (order == OrderBy.Ascending))
+                        Swap(ref matrix[j], ref matrix[j + 1]);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sorts jagged array by max value of array.
+        /// </summary>
+        /// <param name="matrix">Jagged array to sort.</param>
+        /// <param name="order">Order of sorting.</param>
+        public static void BubbleSortByMax(this int[][] matrix, OrderBy order)
+        {
+            if (matrix == null)
+                throw new ArgumentNullException($"Array {nameof(matrix)} is null.");
+            if (matrix.Length == 0)
+                throw new ArgumentException($"Array {nameof(matrix)} is empty.");
+
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                for (int j = 0; j < matrix.Length - i - 1; j++)
+                {
+                    if (FindMax(matrix[j]) > FindMax(matrix[j + 1]) == (order == OrderBy.Ascending))
+                        Swap(ref matrix[j], ref matrix[j + 1]);
+                }
+            }
+        }
+
         private static void Swap(ref int[] a, ref int[] b)
         {
             var buff = a;
@@ -34,13 +82,13 @@ namespace Logic
             b = buff;
         }
 
-        /// <summary>
-        /// Finds minimal number in int array.
-        /// </summary>
-        /// <param name="array">Int array.</param>
-        /// <returns>Minimal number.</returns>
-        public static int FindMin(int[] array)
+        private static int FindMin(int[] array)
         {
+            if (array == null)
+                throw new ArgumentNullException($"Array {nameof(array)} is null.");
+            if (array.Length == 0)
+                return Int32.MaxValue;
+
             int min = Int32.MaxValue;
             foreach (var num in array)
             {
@@ -50,13 +98,13 @@ namespace Logic
             return min;
         }
 
-        /// <summary>
-        /// Finds maximum number in int array.
-        /// </summary>
-        /// <param name="array">Int array.</param>
-        /// <returns>Maximum number.</returns>
-        public static int FindMax(int[] array)
+        private static int FindMax(int[] array)
         {
+            if (array == null)
+                throw new ArgumentNullException($"Array {nameof(array)} is null.");
+            if (array.Length == 0)
+                return Int32.MinValue;
+
             int max = Int32.MinValue;
             foreach (var num in array)
             {
@@ -66,13 +114,11 @@ namespace Logic
             return max;
         }
 
-        /// <summary>
-        /// Returns lenght of int array.
-        /// </summary>
-        /// <param name="array">Int array.</param>
-        /// <returns>Lenght of <paramref name="array"/>.</returns>
-        public static int GetLength(int[] array)
+        private static int GetLenght(int[] array)
         {
+            if (array == null)
+                throw new ArgumentNullException($"Array {nameof(array)} is null.");
+
             return array.Length;
         }
     }
