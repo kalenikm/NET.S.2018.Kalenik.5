@@ -1,10 +1,17 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Logic.Tests
 {
     [TestFixture]
     public class PolynomialTests
     {
+        [Test]
+        public void PolynomialTest_NullArray_ThrowException()
+        {
+            Assert.Catch<ArgumentNullException>(() => new Polynomial(null));
+        }
+
         [Test]
         public void PolynomialTest_EqualsTest_SamePolynomials()
         {

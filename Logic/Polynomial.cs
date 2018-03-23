@@ -8,6 +8,10 @@ namespace Logic
     {
         private readonly double[] _coefficients;
 
+        /// <summary>
+        /// Takes cofficients from double array.
+        /// </summary>
+        /// <param name="koefs">Coefficients of a polynomial.</param>
         public Polynomial(params double[] koefs)
         {
             if(koefs == null)
@@ -16,6 +20,8 @@ namespace Logic
 
             koefs.CopyTo(_coefficients, 0);
         }
+
+        #region Overrided Object methods
 
         public override string ToString()
         {
@@ -50,6 +56,10 @@ namespace Logic
 
             return GetHashCode().Equals(obj.GetHashCode());
         }
+
+        #endregion
+
+        #region Overrided operators
 
         public static bool operator ==(Polynomial p1, Polynomial p2)
         {
@@ -92,7 +102,7 @@ namespace Logic
         }
 
         public static Polynomial operator *(Polynomial p1, Polynomial p2)
-        { 
+        {
             var array = new double[p1._coefficients.Length + p2._coefficients.Length - 1];
 
             for (int i = 0; i < p1._coefficients.Length; i++)
@@ -104,5 +114,7 @@ namespace Logic
             }
             return new Polynomial(array);
         }
+
+        #endregion
     }
 }
