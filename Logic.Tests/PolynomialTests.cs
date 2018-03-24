@@ -17,8 +17,10 @@ namespace Logic.Tests
         {
             var p1 = new Polynomial(3.7, 12.1, 6.4);
             var p2 = new Polynomial(3.7, 12.1, 6.4);
-            bool result = p1.Equals(p2);
-            Assert.AreEqual(true, result);
+            bool result1 = p1.Equals(p2);
+            bool result2 = p1.GetHashCode() == p2.GetHashCode();
+            Assert.AreEqual(true, result1);
+            Assert.AreEqual(true, result2);
         }
 
         [Test]
@@ -26,8 +28,10 @@ namespace Logic.Tests
         {
             var p1 = new Polynomial(3.7, 12.2, 6.4);
             var p2 = new Polynomial(3.7, 12.1, 6.4);
-            bool result = p1.Equals(p2);
-            Assert.AreEqual(false, result);
+            bool result1 = p1.Equals(p2);
+            bool result2 = p1.GetHashCode() == p2.GetHashCode();
+            Assert.AreEqual(false, result1);
+            Assert.AreEqual(false, result2);
         }
 
         [Test]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Logic
@@ -38,15 +39,16 @@ namespace Logic
 
         public override int GetHashCode()
         {
-            int x = 3;
-            double d = 0;
+            int x = 1;
+            int d = 0;
             foreach (double coef in _coefficients)
             {
                 int point = coef.ToString(CultureInfo.InvariantCulture).IndexOf(".", StringComparison.Ordinal);
                 int pow = coef.ToString(CultureInfo.InvariantCulture).Length - (point == -1 ? 0 : point);
-                d += Math.Pow((int)(coef * Math.Pow(10, pow)), x);
+                d += (int)Math.Pow((int)(coef * Math.Pow(10, pow)), x);
+                x++;
             }
-            return (int)BitConverter.DoubleToInt64Bits(d);
+            return d;
         }
 
         public override bool Equals(object obj)
@@ -54,7 +56,10 @@ namespace Logic
             if (obj == null)
                 throw new ArgumentNullException();
 
-            return GetHashCode().Equals(obj.GetHashCode());
+            if (!(obj is Polynomial))
+                return false;
+
+            return _coefficients.SequenceEqual(((Polynomial) obj)._coefficients);
         }
 
         #endregion
