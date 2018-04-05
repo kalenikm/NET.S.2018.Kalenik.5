@@ -20,7 +20,7 @@ namespace Logic.Tests
                 new[] {1, 2, 3, 4, 5},
                 new[] {1, 2, 4, 7, 1, 7, 2, 7, 3}
             };
-            matr.BubbleSortByLenght(Sorter.OrderBy.Ascending);
+            matr.BubbleSort(Sorter.OrderByTag.Lenght, Sorter.Order.Ascending);
             for (int i = 0; i < res.Length; i++)
             {
                 for (int j = 0; j < res[i].Length; j++)
@@ -45,7 +45,7 @@ namespace Logic.Tests
                 new[] {1, 2, 3, 4, 5},
                 new[] {1, 4, 6}
             };
-            matr.BubbleSortByLenght(Sorter.OrderBy.Descending);
+            matr.BubbleSort(Sorter.OrderByTag.Lenght, Sorter.Order.Descending);
             for (int i = 0; i < res.Length; i++)
             {
                 for (int j = 0; j < res[i].Length; j++)
@@ -70,7 +70,7 @@ namespace Logic.Tests
                 new[] {324, 672, 9, 13, 45},
                 new[] {34, 11, 16, 54, 78}
             };
-            matr.BubbleSortByMin(Sorter.OrderBy.Ascending);
+            matr.BubbleSort(Sorter.OrderByTag.Min, Sorter.Order.Ascending);
             for (int i = 0; i < res.Length; i++)
             {
                 for (int j = 0; j < res[i].Length; j++)
@@ -95,7 +95,7 @@ namespace Logic.Tests
                 new[] {324, 672, 9, 13, 45},
                 new[] {7, 122, 55, 725, 73}
             };
-            matr.BubbleSortByMin(Sorter.OrderBy.Descending);
+            matr.BubbleSort(Sorter.OrderByTag.Min, Sorter.Order.Descending);
             for (int i = 0; i < res.Length; i++)
             {
                 for (int j = 0; j < res[i].Length; j++)
@@ -120,7 +120,7 @@ namespace Logic.Tests
                 new[] {324, 78, 9, 13, 45},
                 new[] {7, 122, 55, 725, 73}
             };
-            matr.BubbleSortByMax(Sorter.OrderBy.Ascending);
+            matr.BubbleSort(Sorter.OrderByTag.Max, Sorter.Order.Ascending);
             for (int i = 0; i < res.Length; i++)
             {
                 for (int j = 0; j < res[i].Length; j++)
@@ -145,7 +145,7 @@ namespace Logic.Tests
                 new[] {324, 78, 9, 13, 45},
                 new[] {34, 11, 16, 54, 78}
             };
-            matr.BubbleSortByMax(Sorter.OrderBy.Descending);
+            matr.BubbleSort(Sorter.OrderByTag.Max, Sorter.Order.Descending);
             for (int i = 0; i < res.Length; i++)
             {
                 for (int j = 0; j < res[i].Length; j++)

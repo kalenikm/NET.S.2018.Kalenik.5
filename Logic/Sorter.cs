@@ -4,39 +4,50 @@ namespace Logic
 {
     public static class Sorter
     {
-        public enum OrderBy
+        public enum Order
         {
             Ascending,
             Descending
         }
+        public enum OrderByTag
+        {
+            Lenght,
+            Min,
+            Max
+        }
+
         /// <summary>
         /// Sorts jagged array by lenght.
         /// </summary>
         /// <param name="matrix">Jagged array to sort.</param>
+        /// <param name="tag">Tag to order by.</param>
         /// <param name="order">Order of sorting.</param>
-        public static void BubbleSortByLenght(this int[][] matrix, OrderBy order)
+        public static void BubbleSort(this int[][] matrix, OrderByTag tag, Order order)
         {
             if(matrix == null)
                 throw new ArgumentNullException($"Array {nameof(matrix)} is null.");
             if(matrix.Length == 0)
                 throw new ArgumentException($"Array {nameof(matrix)} is empty.");
 
-            for (int i = 0; i < matrix.Length; i++)
+            switch (tag)
             {
-                for (int j = 0; j < matrix.Length - i - 1; j++)
-                {
-                    if (GetLenght(matrix[j]) > GetLenght(matrix[j + 1])== (order == OrderBy.Ascending))
-                        Swap(ref matrix[j], ref matrix[j + 1]);
-                }
+                case OrderByTag.Lenght:
+                    matrix.BubbleSort(CompareByLength, order);
+                    break;
+                case OrderByTag.Min:
+                    matrix.BubbleSort(CompareByMinElement, order);
+                    break;
+                case OrderByTag.Max:
+                    matrix.BubbleSort(CompareByMaxElement, order);
+                    break;
+                default:
+                    throw new ArgumentException(nameof(tag));
             }
+
         }
 
-        /// <summary>
-        /// Sorts jagged array by min value of array.
-        /// </summary>
-        /// <param name="matrix">Jagged array to sort.</param>
-        /// <param name="order">Order of sorting.</param>
-        public static void BubbleSortByMin(this int[][] matrix, OrderBy order)
+
+        private static void BubbleSort(this int[][] matrix, Func<int[], int[], int> func, Order order)
         {
             if (matrix == null)
                 throw new ArgumentNullException($"Array {nameof(matrix)} is null.");
@@ -47,32 +58,25 @@ namespace Logic
             {
                 for (int j = 0; j < matrix.Length - i - 1; j++)
                 {
-                    if (FindMin(matrix[j]) > FindMin(matrix[j + 1]) == (order == OrderBy.Ascending))
+                    if (func(matrix[j], matrix[j + 1]) > 0 == (order == Order.Ascending))
                         Swap(ref matrix[j], ref matrix[j + 1]);
                 }
             }
         }
 
-        /// <summary>
-        /// Sorts jagged array by max value of array.
-        /// </summary>
-        /// <param name="matrix">Jagged array to sort.</param>
-        /// <param name="order">Order of sorting.</param>
-        public static void BubbleSortByMax(this int[][] matrix, OrderBy order)
+        private static int CompareByLength(int[] firstArr, int[] secondArr)
         {
-            if (matrix == null)
-                throw new ArgumentNullException($"Array {nameof(matrix)} is null.");
-            if (matrix.Length == 0)
-                throw new ArgumentException($"Array {nameof(matrix)} is empty.");
+            return firstArr.Length.CompareTo(secondArr.Length);
+        }
 
-            for (int i = 0; i < matrix.Length; i++)
-            {
-                for (int j = 0; j < matrix.Length - i - 1; j++)
-                {
-                    if (FindMax(matrix[j]) > FindMax(matrix[j + 1]) == (order == OrderBy.Ascending))
-                        Swap(ref matrix[j], ref matrix[j + 1]);
-                }
-            }
+        private static int CompareByMaxElement(int[] firstArr, int[] secondArr)
+        {
+            return FindMax(firstArr).CompareTo(FindMax(secondArr));
+        }
+
+        private static int CompareByMinElement(int[] firstArr, int[] secondArr)
+        {
+            return FindMin(firstArr).CompareTo(FindMin(secondArr));
         }
 
         private static void Swap(ref int[] a, ref int[] b)
@@ -112,14 +116,6 @@ namespace Logic
                     max = num;
             }
             return max;
-        }
-
-        private static int GetLenght(int[] array)
-        {
-            if (array == null)
-                throw new ArgumentNullException($"Array {nameof(array)} is null.");
-
-            return array.Length;
         }
     }
 }
