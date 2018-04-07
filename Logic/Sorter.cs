@@ -47,7 +47,7 @@ namespace Logic
         }
 
 
-        private static void BubbleSort(this int[][] matrix, Func<int[], int[], int> func, Order order)
+        private static void BubbleSort(this int[][] matrix, Comparison<int[]> copm, Order order)
         {
             if (matrix == null)
                 throw new ArgumentNullException($"Array {nameof(matrix)} is null.");
@@ -58,7 +58,7 @@ namespace Logic
             {
                 for (int j = 0; j < matrix.Length - i - 1; j++)
                 {
-                    if (func(matrix[j], matrix[j + 1]) > 0 == (order == Order.Ascending))
+                    if (copm(matrix[j], matrix[j + 1]) > 0 == (order == Order.Ascending))
                         Swap(ref matrix[j], ref matrix[j + 1]);
                 }
             }
